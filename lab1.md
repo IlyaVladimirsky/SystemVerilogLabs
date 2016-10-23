@@ -17,7 +17,7 @@ module top;
     end  
 endmodule
 ```
-[**output:**](#t1out)
+[**Output:**](#t1out)
 ```
 # KERNEL: Binary format: 10000101
 # KERNEL: Decimal format: 11
@@ -49,11 +49,10 @@ module top;
       $display("Value: %0d", struct2.value);
       $display("Description: %s", struct2.description);
       $display("Vector: %b", struct2.vector);
-    end
-  
+    end  
 endmodule
 ```
-[**output:**](#t2out)
+[**Output:**](#t2out)
 ```
 # KERNEL: -----First Struct-----
 # KERNEL: Value: -1
@@ -65,3 +64,126 @@ endmodule
 # KERNEL: Vector: 00000000
 ```
 
+####[Task3](#t3) - [pgd](https://www.edaplayground.com/x/4nHn)
+```systemverilog
+module top;
+	initial begin
+      string str;
+      str = "I'm a programmer!";
+      
+      $display("First char is '%s'", str.getc(0));
+      $display("Last char is '%s'", str.getc(str.len - 1));
+    end  
+endmodule
+```
+[**Output:**](#t3out)
+```
+# KERNEL: First char is 'I'
+# KERNEL: Last char is '!'
+```
+
+####[Task4](#t4) - [pgd](https://www.edaplayground.com/x/5_bY)
+```systemverilog
+module top;
+	initial begin
+      string str = "To throw the cat among the pigeons";
+      string arr[10];
+      
+      string word = "";
+      int word_counter = 0;
+      foreach (str[i])
+        if (str[i] == 32 || i == str.len - 1) begin
+          arr[word_counter] = word;
+          if (str[i] != 32)
+            arr[word_counter] = {word, string'(str[i])};
+          $display("%s", arr[word_counter]);
+          word = "";
+        end else
+          word = {word, string'(str[i])};
+    end 
+endmodule
+```
+[**Output:**](#t4out)
+```
+# KERNEL: To
+# KERNEL: throw
+# KERNEL: the
+# KERNEL: cat
+# KERNEL: among
+# KERNEL: the
+# KERNEL: pigeons
+```
+
+####[Task5](#t5) - [pgd](https://www.edaplayground.com/x/q_f)
+```systemverilog
+module top;    
+	initial begin
+      int matrix [5][10];
+      int temp [10];
+      
+      foreach (matrix[i, j]) begin
+        matrix[i][j] = $urandom_range(100,1);
+      end
+      
+      foreach (matrix[i, j]) begin
+        temp[j] = matrix[i][j];
+        if(j == 9) begin
+          temp.sort();
+          foreach(temp[k])
+            matrix[i][k] = temp[k];
+        end        
+      end
+    end 
+endmodule
+```
+
+####[Task6](#t6) - [pgd](https://www.edaplayground.com/x/4Wub)
+```systemverilog
+module top;    
+	initial begin
+      bit [3:0][7:0] matrix [0:4][0:9];
+      int tempint;
+      string s = "";
+      string temp = "";
+      
+      foreach (matrix[i, j]) begin
+        matrix[i][j] = $urandom_range(100,1);        
+      end      
+      
+      foreach (matrix[i, j]) begin
+        temp.itoa(matrix[i][j]);
+        s = {s, temp};
+        if(j == 9) begin
+          $display(s);
+          s = "";
+        end        
+      end
+    end 
+endmodule
+```
+[**Output:**](#t6out)
+```
+# KERNEL: 3322820388840647272
+# KERNEL: 839376559256685448
+# KERNEL: 3963292887595759455
+# KERNEL: 63906492222175355085
+# KERNEL: 50768019827316805461
+```
+
+####[Task7](#t7) - [pgd](https://www.edaplayground.com/x/2QsV)
+```systemverilog
+module top;    
+	initial begin
+      byte darray [];
+      darray = new[10000];    
+      darray = new[100](darray);                                  
+                                 
+      $display("darray has %0d elements", darray.size());
+      darray.delete();     
+    end 
+endmodule
+```
+[**Output:**](#t7out)
+```
+# KERNEL: darray has 100 elements
+```
