@@ -17,7 +17,7 @@ module top;
     end  
 endmodule
 ```
-[**Output:**](#t1out)
+[**output:**](#t1out)
 ```
 # KERNEL: Binary format: 10000101
 # KERNEL: Decimal format: 11
@@ -26,7 +26,7 @@ endmodule
 # KERNEL: 
 ```
 
-[Task2](#t2) - [pgd](https://www.edaplayground.com/x/nJz)
+####[Task2](#t2) - [pgd](https://www.edaplayground.com/x/nJz)
 ```systemverilog
 module top;
 	initial begin
@@ -53,7 +53,7 @@ module top;
   
 endmodule
 ```
-[**Output:**](#t2out)
+[**output:**](#t2out)
 ```
 # KERNEL: -----First Struct-----
 # KERNEL: Value: -1
