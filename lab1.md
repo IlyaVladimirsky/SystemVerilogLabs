@@ -374,3 +374,244 @@ endmodule
 # KERNEL: maxAi = 38
 # KERNEL: minAi = -75
 ```
+
+####[Task12](#t12) - [pgd](https://www.edaplayground.com/x/6Ms4)
+```systemverilog
+package Pack;
+	class AdvancedArr;
+      rand int A[];
+      int minAi;
+      int maxAi;
+      
+      constraint c_A {
+        A.size inside {10};
+        foreach(A[j]) A[j] inside {[-100:100]};
+      }
+      
+      function new;
+      	randomize();        
+      endfunction
+      
+      function int getMax;
+        maxAi = int'(A.max);
+        
+        return maxAi;
+      endfunction : getMax
+      
+      function int getMin;
+        minAi = int'(A.min);
+        
+        return minAi;
+      endfunction : getMin
+      
+      virtual function printAll();
+        foreach (A[i])
+          $display("A[%0d] = %0d", i, A[i]);
+        $display("maxAi = %0d", getMax());
+        $display("minAi = %0d", getMin());
+      endfunction
+    endclass : AdvancedArr
+        
+  	class AdvancedArrExt extends AdvancedArr;
+      function printAll();
+        $display("-----Created by %s-----", "Ilia Vladimirsky");
+        super.printAll();        
+      endfunction
+    endclass
+endpackage : Pack
+
+module top;
+  	import Pack::*;
+  
+  	class AdvancedArrOverriden extends Pack::AdvancedArrExt;
+      function printAll();
+        AdvancedArr::printAll();
+      endfunction
+    endclass
+  
+  	initial begin
+      AdvancedArrOverriden arr = new;
+      arr.printAll();
+      arr = null;
+  	end  
+endmodule
+```
+####[Output:](#t12out)
+```
+# KERNEL: A[0] = -15
+# KERNEL: A[1] = -75
+# KERNEL: A[2] = 30
+# KERNEL: A[3] = -40
+# KERNEL: A[4] = 38
+# KERNEL: A[5] = -15
+# KERNEL: A[6] = -39
+# KERNEL: A[7] = -71
+# KERNEL: A[8] = -56
+# KERNEL: A[9] = -73
+# KERNEL: maxAi = 38
+# KERNEL: minAi = -75
+```
+
+####[Task13](#t13) - [pgd](https://www.edaplayground.com/x/ZEZ)
+```systemverilog
+module top;
+	timeunit 1ms;
+  
+    class Tasker; 
+      event startout;
+      event endout;
+      int i = 1;
+      int bi = 1;
+      
+      // increment every 10ms instead of 1us to adapt the output
+      task inc;        
+        forever #10000000 begin 
+          $display("%0d", i++);
+          if (i > 1)
+            ->startout;
+        end
+      endtask
+      
+      task biginc;
+        forever #1000000 begin // 1ms tacting
+          $display("%0d000us", bi++);
+          if (bi == 51)
+            ->endout;
+        end
+      endtask
+      
+      task handle;
+        @(startout);
+        $display("Start check processing...");
+        
+        @(endout);
+        $display("End check processing...");
+      endtask
+    endclass
+        
+  	initial begin
+      Tasker t = new;
+      
+      fork
+        t.inc(); 
+        t.biginc();
+        t.handle();
+      join_none
+      
+      #100 $finish;
+  	end  
+endmodule
+```
+####[Output:](#t13out)
+```
+# KERNEL: 1000us
+# KERNEL: 2000us
+# KERNEL: 3000us
+# KERNEL: 4000us
+# KERNEL: 5000us
+# KERNEL: 6000us
+# KERNEL: 7000us
+# KERNEL: 8000us
+# KERNEL: 9000us
+# KERNEL: 1
+# KERNEL: 10000us
+# KERNEL: Start check processing...
+# KERNEL: 11000us
+# KERNEL: 12000us
+# KERNEL: 13000us
+# KERNEL: 14000us
+# KERNEL: 15000us
+# KERNEL: 16000us
+# KERNEL: 17000us
+# KERNEL: 18000us
+# KERNEL: 19000us
+# KERNEL: 2
+# KERNEL: 20000us
+# KERNEL: 21000us
+# KERNEL: 22000us
+# KERNEL: 23000us
+# KERNEL: 24000us
+# KERNEL: 25000us
+# KERNEL: 26000us
+# KERNEL: 27000us
+# KERNEL: 28000us
+# KERNEL: 29000us
+# KERNEL: 3
+# KERNEL: 30000us
+# KERNEL: 31000us
+# KERNEL: 32000us
+# KERNEL: 33000us
+# KERNEL: 34000us
+# KERNEL: 35000us
+# KERNEL: 36000us
+# KERNEL: 37000us
+# KERNEL: 38000us
+# KERNEL: 39000us
+# KERNEL: 4
+# KERNEL: 40000us
+# KERNEL: 41000us
+# KERNEL: 42000us
+# KERNEL: 43000us
+# KERNEL: 44000us
+# KERNEL: 45000us
+# KERNEL: 46000us
+# KERNEL: 47000us
+# KERNEL: 48000us
+# KERNEL: 49000us
+# KERNEL: 5
+# KERNEL: 50000us
+# KERNEL: End check processing...
+# KERNEL: 51000us
+# KERNEL: 52000us
+# KERNEL: 53000us
+# KERNEL: 54000us
+# KERNEL: 55000us
+# KERNEL: 56000us
+# KERNEL: 57000us
+# KERNEL: 58000us
+# KERNEL: 59000us
+# KERNEL: 6
+# KERNEL: 60000us
+# KERNEL: 61000us
+# KERNEL: 62000us
+# KERNEL: 63000us
+# KERNEL: 64000us
+# KERNEL: 65000us
+# KERNEL: 66000us
+# KERNEL: 67000us
+# KERNEL: 68000us
+# KERNEL: 69000us
+# KERNEL: 7
+# KERNEL: 70000us
+# KERNEL: 71000us
+# KERNEL: 72000us
+# KERNEL: 73000us
+# KERNEL: 74000us
+# KERNEL: 75000us
+# KERNEL: 76000us
+# KERNEL: 77000us
+# KERNEL: 78000us
+# KERNEL: 79000us
+# KERNEL: 8
+# KERNEL: 80000us
+# KERNEL: 81000us
+# KERNEL: 82000us
+# KERNEL: 83000us
+# KERNEL: 84000us
+# KERNEL: 85000us
+# KERNEL: 86000us
+# KERNEL: 87000us
+# KERNEL: 88000us
+# KERNEL: 89000us
+# KERNEL: 9
+# KERNEL: 90000us
+# KERNEL: 91000us
+# KERNEL: 92000us
+# KERNEL: 93000us
+# KERNEL: 94000us
+# KERNEL: 95000us
+# KERNEL: 96000us
+# KERNEL: 97000us
+# KERNEL: 98000us
+# KERNEL: 99000us
+```
