@@ -187,3 +187,190 @@ endmodule
 ```
 # KERNEL: darray has 100 elements
 ```
+
+####[Task9](#t9) - [pgd](https://www.edaplayground.com/x/43WC)
+```systemverilog
+module top;    
+	initial begin
+      typedef struct {
+        int value;
+        string description;
+        bit [7:0] vector;
+      } Structure_task_2;
+      Structure_task_2 arr[10];
+      Structure_task_2 q[$];
+      
+      foreach (arr[i]) begin
+        arr[i].value = i;
+        q.push_back(arr[i]);
+      end
+      
+      q.pop_front();
+      q.pop_front();
+      q.pop_front();
+      
+      foreach (q[i]) begin
+        $display("-------Struct-------");
+        $display("Value: %0d", q[i].value);
+      	$display("Description: %s", q[i].description);
+      	$display("Vector: %b", q[i].vector);
+      end
+    end 
+endmodule
+```
+[**Output:**](#t9out)
+```
+# KERNEL: -------Struct-------
+# KERNEL: Value: 3
+# KERNEL: Description: 
+# KERNEL: Vector: 00000000
+# KERNEL: -------Struct-------
+# KERNEL: Value: 4
+# KERNEL: Description: 
+# KERNEL: Vector: 00000000
+# KERNEL: -------Struct-------
+# KERNEL: Value: 5
+# KERNEL: Description: 
+# KERNEL: Vector: 00000000
+# KERNEL: -------Struct-------
+# KERNEL: Value: 6
+# KERNEL: Description: 
+# KERNEL: Vector: 00000000
+# KERNEL: -------Struct-------
+# KERNEL: Value: 7
+# KERNEL: Description: 
+# KERNEL: Vector: 00000000
+# KERNEL: -------Struct-------
+# KERNEL: Value: 8
+# KERNEL: Description: 
+# KERNEL: Vector: 00000000
+# KERNEL: -------Struct-------
+# KERNEL: Value: 9
+# KERNEL: Description: 
+# KERNEL: Vector: 00000000
+```
+
+####[Task10](#t10) - [pgd](https://www.edaplayground.com/x/3YpF)
+```systemverilog
+module top;
+    class AdvancedArr;
+      rand int A[];
+      int minAi;
+      int maxAi;
+      
+      constraint c_A {
+        A.size inside {10};
+        foreach(A[j]) A[j] inside {[-10:10]};
+      }
+      
+      function int getMax;
+        maxAi = int'(A.max);
+        
+        return maxAi;
+      endfunction : getMax
+      
+      function int getMin;
+        minAi = int'(A.min);
+        
+        return minAi;
+      endfunction : getMin
+      
+      virtual function printAll();
+        foreach (A[i])
+          $display("A[%0d] = %0d", i, A[i]);
+        $display("maxAi = %0d", getMax());
+        $display("minAi = %0d", getMin());
+      endfunction
+    endclass : AdvancedArr
+        
+	initial begin
+      AdvancedArr arr = new;
+      arr.randomize();
+      arr.printAll();
+      arr = null;
+  	end  
+endmodule
+```
+[**Output:**](#t10out)
+```
+# KERNEL: A[0] = -7
+# KERNEL: A[1] = -9
+# KERNEL: A[2] = -6
+# KERNEL: A[3] = 9
+# KERNEL: A[4] = -7
+# KERNEL: A[5] = 10
+# KERNEL: A[6] = 3
+# KERNEL: A[7] = 7
+# KERNEL: A[8] = -9
+# KERNEL: A[9] = 7
+# KERNEL: maxAi = 10
+# KERNEL: minAi = -9
+```
+
+####[Task11](#t11) - [pgd](https://www.edaplayground.com/x/5m_E)
+```systemverilog
+module top;
+    class AdvancedArr;
+      rand int A[];
+      int minAi;
+      int maxAi;
+      
+      constraint c_A {
+        A.size inside {10};
+        foreach(A[j]) A[j] inside {[-100:100]};
+      }
+      
+      function new;
+      	randomize();        
+      endfunction
+      
+      function int getMax;
+        maxAi = int'(A.max);
+        
+        return maxAi;
+      endfunction : getMax
+      
+      function int getMin;
+        minAi = int'(A.min);
+        
+        return minAi;
+      endfunction : getMin
+      
+      virtual function printAll();
+        foreach (A[i])
+          $display("A[%0d] = %0d", i, A[i]);
+        $display("maxAi = %0d", getMax());
+        $display("minAi = %0d", getMin());
+      endfunction
+    endclass : AdvancedArr
+        
+  	class AdvancedArrExt extends AdvancedArr;
+      function printAll();
+        $display("-----Created by %s-----", "Ilia Vladimirsky");
+        super.printAll();        
+      endfunction
+    endclass : AdvancedArrExt
+  
+	initial begin
+      AdvancedArrExt arr = new;
+      arr.printAll();
+      arr = null;
+  	end  
+endmodule
+```
+[**Output:**](#t11out)
+```
+# KERNEL: -----Created by Ilia Vladimirsky-----
+# KERNEL: A[0] = -15
+# KERNEL: A[1] = -75
+# KERNEL: A[2] = 30
+# KERNEL: A[3] = -40
+# KERNEL: A[4] = 38
+# KERNEL: A[5] = -15
+# KERNEL: A[6] = -39
+# KERNEL: A[7] = -71
+# KERNEL: A[8] = -56
+# KERNEL: A[9] = -73
+# KERNEL: maxAi = 38
+# KERNEL: minAi = -75
+```
