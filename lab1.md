@@ -1,6 +1,8 @@
 ## Lab1
 
 ####[Task1](#t1) - [pgd](https://www.edaplayground.com/x/2FdB)
+>Вывести в консоль значения литералов в десятичном, двоичном, шестнадцатиричном и строковом форматах.
+
 ```systemverilog
 module top;
 	initial begin
@@ -17,7 +19,7 @@ module top;
     end  
 endmodule
 ```
-[**Output:**](#t1out)
+####[Output:](#t1out)
 ```
 # KERNEL: Binary format: 10000101
 # KERNEL: Decimal format: 11
@@ -27,6 +29,8 @@ endmodule
 ```
 
 ####[Task2](#t2) - [pgd](https://www.edaplayground.com/x/nJz)
+> Создать тип данных структура, содержащую 4 различных поля. Поля должны иметь тип целочисленный, строковый, бит-вектор. Создать две переменные полученного типа. Проинвертировать все битовые поля в первой переменной. Значение всех полей первой и второй переменных типа структуры вывести в консоль.
+
 ```systemverilog
 module top;
 	initial begin
@@ -52,7 +56,7 @@ module top;
     end  
 endmodule
 ```
-[**Output:**](#t2out)
+####[Output:](#t2out)
 ```
 # KERNEL: -----First Struct-----
 # KERNEL: Value: -1
@@ -65,6 +69,8 @@ endmodule
 ```
 
 ####[Task3](#t3) - [pgd](https://www.edaplayground.com/x/4nHn)
+>Объявить и заполнить строковую переменную. Вывести на экран первый и последний элемент строки. Длинна строки должна быть больше 10 символов.
+
 ```systemverilog
 module top;
 	initial begin
@@ -76,13 +82,15 @@ module top;
     end  
 endmodule
 ```
-[**Output:**](#t3out)
+####[Output:](#t3out)
 ```
 # KERNEL: First char is 'I'
 # KERNEL: Last char is '!'
 ```
 
 ####[Task4](#t4) - [pgd](https://www.edaplayground.com/x/5_bY)
+>Объявить и заполнить строковую переменную. Длинна строки должна быть больше 30 символов. Строка содержит символы пробела, разделяющие строку на слова, слов более одного. Создать массив строковых переменных и заполнить их словами из исходной переменной.
+
 ```systemverilog
 module top;
 	initial begin
@@ -103,7 +111,7 @@ module top;
     end 
 endmodule
 ```
-[**Output:**](#t4out)
+####[Output:](#t4out)
 ```
 # KERNEL: To
 # KERNEL: throw
@@ -115,6 +123,8 @@ endmodule
 ```
 
 ####[Task5](#t5) - [pgd](https://www.edaplayground.com/x/q_f)
+>Создать 2-х мерный массив целочисленных переменных, заполнить случайными значениями и после отсортировать в порядке возрастания элементы в каждой строке.
+
 ```systemverilog
 module top;    
 	initial begin
@@ -138,6 +148,8 @@ endmodule
 ```
 
 ####[Task6](#t6) - [pgd](https://www.edaplayground.com/x/4Wub)
+>Создать упакованный массив данных, в который поместить значения из предыдущего задания и вывести в консоль все элементы друг за другом без пробелов.
+
 ```systemverilog
 module top;    
 	initial begin
@@ -161,7 +173,7 @@ module top;
     end 
 endmodule
 ```
-[**Output:**](#t6out)
+####[Output:](#t6out)
 ```
 # KERNEL: 3322820388840647272
 # KERNEL: 839376559256685448
@@ -171,6 +183,8 @@ endmodule
 ```
 
 ####[Task7](#t7) - [pgd](https://www.edaplayground.com/x/2QsV)
+>Создать динамический массив байт размером 10 кБ. Создать еще один динамический массив целых чисел подходящего размера и поместить в него значения первого. Второй массив не должен занимать 10 кБ.
+
 ```systemverilog
 module top;    
 	initial begin
@@ -183,12 +197,14 @@ module top;
     end 
 endmodule
 ```
-[**Output:**](#t7out)
+####[Output:](#t7out)
 ```
 # KERNEL: darray has 100 elements
 ```
 
 ####[Task9](#t9) - [pgd](https://www.edaplayground.com/x/43WC)
+>Создать очередь, каждый элемент которой представляет собой структуру данных из 2-го задания. Заполнить очередь 10 значениями. После удалить первые 3 элемента из очереди и вывести значения полей элементов в консоль.
+
 ```systemverilog
 module top;    
 	initial begin
@@ -218,7 +234,7 @@ module top;
     end 
 endmodule
 ```
-[**Output:**](#t9out)
+####[Output:](#t9out)
 ```
 # KERNEL: -------Struct-------
 # KERNEL: Value: 3
@@ -251,6 +267,8 @@ endmodule
 ```
 
 ####[Task10](#t10) - [pgd](https://www.edaplayground.com/x/3YpF)
+>Объявить класс, содержащий 3 переменные A, minAi, maxAi. A-массив целых чисел, minAi - минимальное значение, maxAi - максимальное значение в массиве, создать методы класса возвращающие максимальное и минимальное значение в массиве. А также методы вывода значений всех переменных в консоль, функция должна быть виртуальной. Массив заполнить 10 случайными значениями. Создать объект класса и вывести значения переменных в консоль.
+
 ```systemverilog
 module top;
     class AdvancedArr;
@@ -291,7 +309,7 @@ module top;
   	end  
 endmodule
 ```
-[**Output:**](#t10out)
+####[Output:](#t10out)
 ```
 # KERNEL: A[0] = -7
 # KERNEL: A[1] = -9
@@ -308,6 +326,8 @@ endmodule
 ```
 
 ####[Task11](#t11) - [pgd](https://www.edaplayground.com/x/5m_E)
+>Объявить класс, наследуемый от класса в предыдущем задании и переопределить функцию вывода значений всех переменных. Добавить к существующему выводу, вывод сообщения об разработчике класса (ФИО латиницей).
+
 ```systemverilog
 module top;
     class AdvancedArr;
@@ -358,7 +378,7 @@ module top;
   	end  
 endmodule
 ```
-[**Output:**](#t11out)
+####[Output:](#t11out)
 ```
 # KERNEL: -----Created by Ilia Vladimirsky-----
 # KERNEL: A[0] = -15
@@ -376,6 +396,8 @@ endmodule
 ```
 
 ####[Task12](#t12) - [pgd](https://www.edaplayground.com/x/6Ms4)
+>Объявить пакет, который будет содержать объявления классов из двух предыдущих заданий. Объявить еще один класс в модуле, наследуемый от одного из классов описанных в пакете. Использовать импорт пакета. В наследуемом классе переопределить еще раз метод вывода сообщений, убрав вывод информации о разработчике.
+
 ```systemverilog
 package Pack;
 	class AdvancedArr;
@@ -453,6 +475,8 @@ endmodule
 ```
 
 ####[Task13](#t13) - [pgd](https://www.edaplayground.com/x/ZEZ)
+>Объявить класс, содержащий задачу, выводящую значения 1, 2, 3, ... и т.д. с периодичностью 1 us симуляционного времени. Объявить еще одну задачу, которая выводит текстовые сообщения "1000us", "2000us", "3000us" ... с периодичностью 1 ms. Объявить третью задачу, которая выводит сообщение "Start check processing..." после того как в первой задаче значения превысили 10000, и выводит сообщение "End check processing..." после того как вторая задача выведет сообщение "5000us". Запустить три задачи в параллель. Провести моделирование 100 ms.
+
 ```systemverilog
 module top;
 	timeunit 1ms;
@@ -617,6 +641,8 @@ endmodule
 ```
 
 ####[Task14](#t14) - [pgd](https://www.edaplayground.com/x/3qVz)
+>Описать генератор тактового сигнала используя оператор цикла while.
+
 ```systemverilog
 module top;
   	bit c = 0;
@@ -647,6 +673,8 @@ endmodule
 ```
 
 ####[Task15](#t15) - [pgd](https://www.edaplayground.com/x/nNV)
+>Объявить и заполнить два ассоциативных массива произвольными данными. Реализовать функцию сравнения этих массивов.
+
 ```systemverilog
 module top;
   	function automatic equal(ref int ass1[int], ref int ass2[int]);
@@ -680,6 +708,8 @@ endmodule
 ```
 
 ####[Task16](#t16) - [pgd](https://www.edaplayground.com/x/nNf)
+>Создать очередь целых чисел. Реализовать функции поиска максимального и минимального элементов.
+
 ```systemverilog
 module top;
   	function qfind_min(int q[]);
@@ -716,6 +746,8 @@ endmodule
 ```
 
 ####[Task17](#t17) - [pgd](https://www.edaplayground.com/x/nNr)
+>Создать очередь массивов фиксированной длины, каждый из которых содержит два элемента. Элементы будут задавать нижнюю и верхнюю границы диапазона значений. Реализовать функцию проверки того, что заданные диапазоны во всех элементах очереди не пересекаются между собой.
+
 ```systemverilog
 module top;
   typedef int pair[2];
@@ -759,7 +791,9 @@ endmodule
 # KERNEL: Ranges are not intersected!
 ```
 
-####[Task18](#t18) - [pgd](https://www.edaplayground.com/x/nNf)
+####[Task18](#t18) - [pgd](https://www.edaplayground.com/x/2RUa)
+>Реализовать базовый класс А с полем data (динамический массив) и наследуемый от него класс B. Реализовать класс С, содержащий произвольную функцию (например, для подсчета суммы элементов массива data) с входным параметром типа класс A и далее вызвать эту функцию, передав в качестве аргумента объект типа класс B. Для этого следует правильно передать и обработать поле data объекта типа класс B в реализуемой функции класса С.
+
 ```systemverilog
 module top;
     class A;
@@ -804,4 +838,19 @@ endmodule
 ```
 # KERNEL: Array is '{-15, -75, 30, -40, 38}
 # KERNEL: Sum: -62
+```
+
+####[Task19](#t19) - [pgd](https://www.edaplayground.com/x/2UZ2)
+>Реализовать интерфейс, параметризируемый двумя значениями: ширина адреса и ширина данных.
+
+```systemverilog
+module top;
+  interface mem #(parameter data_width = 8, addr_width = 16);
+      logic [data_width-1:0] data;
+      logic [addr_width-1:0] addr;
+    endinterface
+endmodule
+```
+####[Output:](#t19out)
+```
 ```
