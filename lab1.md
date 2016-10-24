@@ -615,3 +615,146 @@ endmodule
 # KERNEL: 98000us
 # KERNEL: 99000us
 ```
+
+####[Task14](#t14) - [pgd](https://www.edaplayground.com/x/3qVz)
+```systemverilog
+module top;
+  	bit c = 0;
+  
+  	initial begin      
+      fork
+        while (1) begin
+          #10 c = ~c; // clock each 10ns
+          $display("%0b", c);
+        end
+      join_none
+      
+      #100 $finish;
+  	end  
+endmodule
+```
+####[Output:](#t14out)
+```
+# KERNEL: 1
+# KERNEL: 0
+# KERNEL: 1
+# KERNEL: 0
+# KERNEL: 1
+# KERNEL: 0
+# KERNEL: 1
+# KERNEL: 0
+# KERNEL: 1
+```
+
+####[Task15](#t15) - [pgd](https://www.edaplayground.com/x/nNV)
+```systemverilog
+module top;
+  	function automatic equal(ref int ass1[int], ref int ass2[int]);
+      if(ass1.num() != ass2.num())
+        return 0;      
+      
+      foreach(ass1[i]) begin
+        int res = 0;
+        foreach(ass2[j])
+          if(ass1[i] == ass2[j]) 
+            res = 1;
+        if (res != 1) return 0;
+      end
+      return 1;
+    endfunction
+  
+  	initial begin  
+      int ass[int] = '{2:5, 3:100, 5:2, -1:-1};
+      int copy_of_ass[int] = '{-1:-1, 2:5, 3:100, 5:2};
+      
+      if(equal(ass, copy_of_ass))
+        $display("Asses are really equal!");
+      else
+        $display("Asses are not equal!");
+  	end 
+endmodule
+```
+####[Output:](#t15out)
+```
+# KERNEL: Asses are really equal
+```
+
+####[Task16](#t16) - [pgd](https://www.edaplayground.com/x/nNf)
+```systemverilog
+module top;
+  	function qfind_min(int q[]);
+      int darr[];
+      int min = 0;
+      darr = new[q.size];
+            
+      for (int i = 0; i < q.size; i++)
+        darr[i] = q[i];
+      
+      $display("Finded min value: %0d", int'(darr.min));
+    endfunction
+  
+  	function qfind_max(int q[]);
+      int max = q[0];
+      foreach(q[i])
+        max = (max < q[i]) ? q[i] : max;
+      
+      $display("Finded max value: %0d", max);
+    endfunction
+  
+  	initial begin  
+      int q[$] = {1, 10, -2, 5, 16, -6, 0, 2};
+      
+      qfind_min(q);
+      qfind_max(q);   
+  	end  
+endmodule
+```
+####[Output:](#t16out)
+```
+# KERNEL: Finded min value: -6
+# KERNEL: Finded max value: 16
+```
+
+####[Task17](#t17) - [pgd](https://www.edaplayground.com/x/nNr)
+```systemverilog
+module top;
+  typedef int pair[2];
+  
+  function automatic is_intersected(pair q[4]);
+      for (int i = 0; i < 4; i++) begin
+        int min = (q[i][0] < q[i][1]) ? q[i][0] : q[i][1];
+        int max = (q[i][0] > q[i][1]) ? q[i][0] : q[i][1];
+        
+      	for (int j = 0; j < 4; j++) begin
+          if (i != j && ( 
+            (min <= q[j][0] && max >= q[j][0]) ||
+            (min <= q[j][1] && max >= q[j][1])))
+            return 1;
+        end
+      end
+      return 0;
+    endfunction
+  
+  	initial begin 
+      pair q[$];
+      
+      pair p = {10, 5};
+      q.push_back(p);
+      p = {1, -1};
+      q.push_back(p);
+      p = {-15, -12};
+      q.push_back(p);
+      p = {2, 3};
+      q.push_back(p);
+            
+      if(is_intersected(q))
+        $display("Ranges are intersected!");
+      else
+        $display("Ranges are not intersected!");
+  	end  
+endmodule
+```
+####[Output:](#t17out)
+```
+# KERNEL: Ranges are not intersected!
+```
