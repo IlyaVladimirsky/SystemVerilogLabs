@@ -758,3 +758,50 @@ endmodule
 ```
 # KERNEL: Ranges are not intersected!
 ```
+
+####[Task18](#t18) - [pgd](https://www.edaplayground.com/x/nNf)
+```systemverilog
+module top;
+    class A;
+      rand int data[];
+
+      constraint c_data {
+        data.size inside {5};
+        foreach(data[j]) data[j] inside {[-100:100]};
+      }
+
+      function new;
+        randomize();        
+      endfunction
+    endclass
+
+    class B extends A;      
+    endclass
+  
+  	class C;   
+      function int sum(A a);
+        int s = 0;
+        foreach(a.data[i])
+          s += a.data[i];
+
+        return s;
+      endfunction
+    endclass
+
+    initial begin
+      C c = new;
+      B b = new;
+      
+      $display("Array is %p", b.data);
+      $display("Sum: %0d", c.sum(b));
+      
+      c = null;
+      b = null;
+    end  
+endmodule
+```
+####[Output:](#t18out)
+```
+# KERNEL: Array is '{-15, -75, 30, -40, 38}
+# KERNEL: Sum: -62
+```
