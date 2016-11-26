@@ -17,16 +17,20 @@
 ```systemverilog
 module top; 
   	class T;
-      bit [31:0] MAX_BUS_ADDR = '1;
-      bit [31:0] max_user_addr = 10000;      
+      parameter int DATA_WIDTH = 128;
+      parameter int ADDR_WIDTH = 32;
+      parameter int STROB_WIDTH = DATA_WIDTH / 8;
+      
+      parameter bit [31:0] MAX_BUS_ADDR = '1;
+      parameter bit [31:0] MAX_USER_ADDR = 10000;      
       
       rand int low_strob_index; // is equal 3 low bits of addr
       rand int left_edge; // index of the left one in strob
       rand int right_edge; // index of the right one in strob
       
-      rand bit [127:0] data;
-      rand bit [31:0] addr;
-      rand bit [128 / 8 - 1:0] strob;
+      rand bit [DATA_WIDTH - 1:0] data;
+      rand bit [ADDR_WIDTH - 1:0] addr;
+      rand bit [STROB_WIDTH - 1:0] strob;
       rand enum {read, write, await, error} mode;
       rand enum {OK, UNDEF} status;
       
@@ -45,8 +49,8 @@ module top;
       }
       
       constraint edges {
-        left_edge >= low_strob_index && left_edge <= 15;
-        right_edge >= left_edge && right_edge <= 15;
+        (left_edge >= low_strob_index) && (left_edge <= 15);
+        (right_edge >= left_edge) && (right_edge <= 15);
       }
       
       constraint strob_value {
@@ -60,7 +64,7 @@ module top;
       }
       
       constraint addr_value {
-        (addr < MAX_BUS_ADDR) && (addr < max_user_addr);
+        (addr < MAX_BUS_ADDR) && (addr < MAX_USER_ADDR);
       }
       
       constraint addr_byte {
@@ -94,7 +98,7 @@ module top;
         
         $display("************New random values************");
         $display("MAX_BUS_ADDR = %0b", t.MAX_BUS_ADDR);
-        $display("max_user_addr = %0b", t.max_user_addr);
+        $display("max_user_addr = %0b", t.MAX_USER_ADDR);
         $display("mode = %s", t.mode.name());
         $display("status = %s", t.status.name());
         $display("addr = %0b", t.addr);
